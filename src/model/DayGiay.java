@@ -4,27 +4,27 @@ package model;
 import java.util.Date;
 
 
-public class DayGiay {
+public class DayGiay implements interfaceModels {
     private int id;
     private String name;
     private String status;
-    private int nguoiTao;
-    private int nguoiSua;
-    private Date ngayTao;
-    private Date ngaySua;
+    private int create_by;
+    private int update_by;
+    private Date create_at;
+    private Date update_at;
     private int deleted;
 
     public DayGiay() {
     }
 
-    public DayGiay(int id, String name, String status, int nguoiTao, int nguoiSua, Date ngayTao, Date ngaySua, int deleted) {
+    public DayGiay(int id, String name, String status, int create_by, int update_by, Date create_at, Date update_at, int deleted) {
         this.id = id;
         this.name = name;
         this.status = status;
-        this.nguoiTao = nguoiTao;
-        this.nguoiSua = nguoiSua;
-        this.ngayTao = ngayTao;
-        this.ngaySua = ngaySua;
+        this.create_by = create_by;
+        this.update_by = update_by;
+        this.create_at = create_at;
+        this.update_at = update_at;
         this.deleted = deleted;
     }
 
@@ -52,36 +52,36 @@ public class DayGiay {
         this.status = status;
     }
 
-    public int getNguoiTao() {
-        return nguoiTao;
+    public int getCreate_by() {
+        return create_by;
     }
 
-    public void setNguoiTao(int nguoiTao) {
-        this.nguoiTao = nguoiTao;
+    public void setCreate_by(int create_by) {
+        this.create_by = create_by;
     }
 
-    public int getNguoiSua() {
-        return nguoiSua;
+    public int getUpdate_by() {
+        return update_by;
     }
 
-    public void setNguoiSua(int nguoiSua) {
-        this.nguoiSua = nguoiSua;
+    public void setUpdate_by(int update_by) {
+        this.update_by = update_by;
     }
 
-    public Date getNgayTao() {
-        return ngayTao;
+    public Date getCreate_at() {
+        return create_at;
     }
 
-    public void setNgayTao(Date ngayTao) {
-        this.ngayTao = ngayTao;
+    public void setCreate_at(Date create_at) {
+        this.create_at = create_at;
     }
 
-    public Date getNgaySua() {
-        return ngaySua;
+    public Date getUpdate_at() {
+        return update_at;
     }
 
-    public void setNgaySua(Date ngaySua) {
-        this.ngaySua = ngaySua;
+    public void setUpdate_at(Date update_at) {
+        this.update_at = update_at;
     }
 
     public int getDeleted() {
@@ -91,10 +91,14 @@ public class DayGiay {
     public void setDeleted(int deleted) {
         this.deleted = deleted;
     }
-    
-    public Object[] toDataRow(){
-        return new Object[]{this.id,this.name, this.status, 
-                            this.ngaySua, this.ngayTao, this.nguoiSua, this.nguoiTao,
-                            this.deleted};
+
+    @Override
+    public String getName_TT_Insert() {
+        return name;
+    }
+
+    @Override
+    public int getId_TT_Insert() {
+        return id;
     }
 }

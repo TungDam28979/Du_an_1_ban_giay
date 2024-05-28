@@ -4,26 +4,57 @@ package model;
 import java.util.Date;
 
 
-public class TenGiay {
+public class TenGiay implements interfaceModels{
     private int id; //1
     private String Name; //2
     private String Status; //3
-    private int nguoiTao; //4
-    private int nguoiSua;//5
-    private Date ngayTao;//6
-    private Date ngaySua;//7
-
+    private int create_By; //4
+    private int update_By;//5
+    private Date create_At;//6
+    private Date update_At;//7
+    
+    private String createByString;
+    private String updateByString;
+    
     public TenGiay() {
     }
 
-    public TenGiay(int id, String Name, String Status, int nguoiTao, int nguoiSua, Date ngayTao, Date ngaySua) {
+    public TenGiay(int id, String Name, String Status, int create_By, int update_By, Date create_At, Date update_At) {
         this.id = id;
         this.Name = Name;
         this.Status = Status;
-        this.nguoiTao = nguoiTao;
-        this.nguoiSua = nguoiSua;
-        this.ngayTao = ngayTao;
-        this.ngaySua = ngaySua;
+        this.create_By = create_By;
+        this.update_By = update_By;
+        this.create_At = create_At;
+        this.update_At = update_At;
+    }
+
+    public TenGiay(int id, String Name, String Status, int create_By, int update_By, Date create_At, Date update_At, String createByString, String updateByString) {
+        this.id = id;
+        this.Name = Name;
+        this.Status = Status;
+        this.create_By = create_By;
+        this.update_By = update_By;
+        this.create_At = create_At;
+        this.update_At = update_At;
+        this.createByString = createByString;
+        this.updateByString = updateByString;
+    }
+
+    public String getCreateByString() {
+        return createByString ;
+    }
+
+    public void setCreateByString(String createByString) {
+        this.createByString = createByString;
+    }
+
+    public String getUpdateByString() {
+        return updateByString;
+    }
+
+    public void setUpdateByString(String updateByString) {
+        this.updateByString = updateByString;
     }
 
     public int getId() {
@@ -50,39 +81,45 @@ public class TenGiay {
         this.Status = Status;
     }
 
-    public int getNguoiTao() {
-        return nguoiTao;
+    public int getCreate_By() {
+        return create_By;
     }
 
-    public void setNguoiTao(int nguoiTao) {
-        this.nguoiTao = nguoiTao;
+    public void setCreate_By(int create_By) {
+        this.create_By = create_By;
     }
 
-    public int getNguoiSua() {
-        return nguoiSua;
+    public int getUpdate_By() {
+        return update_By;
     }
 
-    public void setNguoiSua(int nguoiSua) {
-        this.nguoiSua = nguoiSua;
+    public void setUpdate_By(int update_By) {
+        this.update_By = update_By;
     }
 
-    public Date getNgayTao() {
-        return ngayTao;
+    public Date getCreate_At() {
+        return create_At;
     }
 
-    public void setNgayTao(Date ngayTao) {
-        this.ngayTao = ngayTao;
+    public void setCreate_At(Date create_At) {
+        this.create_At = create_At;
     }
 
-    public Date getNgaySua() {
-        return ngaySua;
+    public Date getUpdate_At() {
+        return update_At;
     }
 
-    public void setNgaySua(Date ngaySua) {
-        this.ngaySua = ngaySua;
+    public void setUpdate_At(Date update_At) {
+        this.update_At = update_At;
     }
-    
-    public Object[] toDataRow(){
-        return new Object[]{this.id,this.Name, this.Status,this.nguoiTao, this.nguoiSua, this.ngayTao, this.ngaySua};
+
+    @Override
+    public String getName_TT_Insert() {
+        return Name;
+    }
+
+    @Override
+    public int getId_TT_Insert() {
+        return id;
     }
 }
