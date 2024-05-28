@@ -1222,7 +1222,7 @@ public class JBanHang extends javax.swing.JFrame {
                 }
                 update_Tong_GTHĐ(id_HD);
                 fill_ALL_SPCT_To_Table();//Fill lại để cập nhật lại SL
-                fillThongTinHoaDon_TaiQuay_ByID_HD(maHDChoosed);
+//                fillThongTinHoaDon_TaiQuay_ByID_HD(maHDChoosed);
                 fill_HĐCT_To_GioHang(maHDChoosed);
             }
         }
