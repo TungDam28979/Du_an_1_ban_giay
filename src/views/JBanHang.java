@@ -1,11 +1,14 @@
 
 package views;
 
+import BanHangDAO.BanHangDAO;
+import BanHangDAO.HDCT_DAO;
 import BanHangDAO.HTTT_DAO;
 import BanHangDAO.TrangThaiHoaDonDAO;
 import BanHangDAO.TrangThaiThanhToanDAO;
 import ModelBanHang.HDCTBanHang;
 import ModelBanHang.HoaDonBanHang;
+import ModelBanHang.hinhThucThanhToan;
 import dao.KichCoDAO;
 import dao.MauSacDAO;
 import dao.ProductDAO;
@@ -30,8 +33,14 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableRowSorter;
+import model.GetChucVu;
+import model.Ispct;
+import model.KhachHang;
 import model.NhanVien;
+import model.Voucher;
 import service.KhachHangService;
+import service.NhanVienService;
+import service.service_voucher;
 import utility.MsgBox;
 
 
@@ -40,6 +49,8 @@ public class JBanHang extends javax.swing.JFrame {
    
     public JBanHang() {
         initComponents();
+        initDSSP(); //Fill lên DS_SPCT với trạng thái SP là "Đang Kinh Doanh"
+        initHD();   //Fill lên hóa đơn vs trạng thái "Chờ thanh toán".
        
     }
 
@@ -607,10 +618,10 @@ public class JBanHang extends javax.swing.JFrame {
         if (indexInvoiceChoosed != -1) {
             maHDChoosed = Integer.valueOf(this.tbl_dshd.getValueAt(indexInvoiceChoosed, 1).toString().substring(2));//Thiết lập hóa đơn đc chọn.
             String id_HDString = tbl_dshd.getValueAt(indexInvoiceChoosed, 1).toString().substring(2);
-            fillThongTinHoaDon_TaiQuay_ByID_HD(Integer.valueOf(id_HDString));
+//            fillThongTinHoaDon_TaiQuay_ByID_HD(Integer.valueOf(id_HDString));
             fill_HĐCT_To_GioHang(Integer.valueOf(id_HDString));
-            fillThongTinHoaDon_TaiQuay_ByID_HD(Integer.valueOf(id_HDString));
-            updateTienDua_TienCK();
+//            fillThongTinHoaDon_TaiQuay_ByID_HD(Integer.valueOf(id_HDString));
+//            updateTienDua_TienCK();
             lbl_HDChoosed.setText(Integer.toString(maHDChoosed));
         }    }//GEN-LAST:event_tbl_dshdMouseClicked
 
@@ -811,10 +822,10 @@ public class JBanHang extends javax.swing.JFrame {
     TrangThaiThanhToanDAO ttttd = new TrangThaiThanhToanDAO();
     //Dao của Nhân viên || KH để tra ra tên KH + NV.
     KhachHangService khser = new KhachHangService();
-//    NhanVien_Service nvs = new NhanVien_Service();
-//    //Dao của BÁN HÀNG để fill danh sách.
-//    HDCT_DAO hdctd = new HDCT_DAO();//Hóa đơn chi tiết.
-//    BanHangDAO bhd = new BanHangDAO();//Là hóa đơn
+    NhanVienService nvs = new NhanVienService();
+    //Dao của BÁN HÀNG để fill danh sách.
+    HDCT_DAO hdctd = new HDCT_DAO();//Hóa đơn chi tiết.
+    BanHangDAO bhd = new BanHangDAO();//Là hóa đơn
     //-----------Lấy model của các bảng để thao tác dữ liệu
     DefaultTableModel dtmHoaDon;
     DefaultTableModel dtmGioHang;
@@ -869,8 +880,8 @@ public class JBanHang extends javax.swing.JFrame {
         dcbVoucherTaiQuay = (DefaultComboBoxModel) cbb_voucher_taiQuay.getModel();
         dcbVoucherTaiQuay.removeAllElements();
         dcbVoucherTaiQuay.addElement("Chưa áp dụng voucher"); //Tại vì trog DS ko thể cho cái này insert vào đc.
-        List<voucher> listVC = vcd.getAll1();
-        for (voucher vc : listVC) {
+        List<Voucher> listVC = vcd.getAll1();
+        for (Voucher vc : listVC) {
             dcbVoucherTaiQuay.addElement(vc.getMota());
         }
     }
@@ -895,28 +906,28 @@ public class JBanHang extends javax.swing.JFrame {
 
     //Tạo 1 HĐ với các thông số cơ bản ID_NV || ID_KH || loaiHD || ID_TTHĐ (chờ thanh toán). 
     //Tổng.GTHĐ || ThanhToan || TienThua ||GiamGiaHĐ. 
-    private void taoHoaDon() {
-        HoaDonBanHang hd = new HoaDonBanHang();
-        hd.setId_nhanVien(GetChucVu.getId()); //Lấy idNV đăng nhập vào.
-        hd.setId_khachHang(1);// Default KH khi tạo HĐ là khách vãng lai.
-        hd.setLoaiHoaDon(xacDinhLoaiHoaDon()); //Dựa vào tabbedPane đag chọn
-        hd.setId_trangThaiHoaDon(1);//Defaul ban đầu = Chờ thanh toán
-        //----
-        hd.setTongGiaTriHD(new BigDecimal(0));//Mới tạo hóa đơn tổng tiền = 0
-        hd.setThanhToan(new BigDecimal(0));//Số tiền thanh toán lúc này là = 0
-        hd.setTienThua(new BigDecimal(0));//Số tiền thừa lúc tạo HD = 0
-        hd.setGiamGiaHD(new BigDecimal(0));//số giảm giá lúc này là 0
-        //-----
-        hd.setNguotTao(GetChucVu.getId());
-
-        String message = (bhd.insert(hd) != 0) ? "Tạo hóa đơn thành công" : "Tạo hóa đơn thất bại";
-        MsgBox.alter(this, message);
-    }
+//    private void taoHoaDon() {
+//       HoaDonBanHang hd = new HoaDonBanHang();
+//        hd.setId_nhanVien(GetChucVu.getId()); //Lấy idNV đăng nhập vào.
+//        hd.setId_khachHang(1);// Default KH khi tạo HĐ là khách vãng lai.
+//        hd.setLoaiHoaDon(xacDinhLoaiHoaDon()); //Dựa vào tabbedPane đag chọn
+//        hd.setId_trangThaiHoaDon(1);//Defaul ban đầu = Chờ thanh toán
+//        //----
+//        hd.setTongGiaTriHD(new BigDecimal(0));//Mới tạo hóa đơn tổng tiền = 0
+//     hd.setThanhToan(new BigDecimal(0));//Số tiền thanh toán lúc này là = 0
+//        hd.setTienThua(new BigDecimal(0));//Số tiền thừa lúc tạo HD = 0
+//        hd.setGiamGiaHD(new BigDecimal(0));//số giảm giá lúc này là 0
+//      //-----
+//        hd.setNguotTao(GetChucVu.getId());
+//
+//        String message = (bhd.insert(hd) != 0) ? "Tạo hóa đơn thành công" : "Tạo hóa đơn thất bại";
+//        MsgBox.alter(this, message);
+//    }
 
     //-----------Utility Hóa Đơn.
-    private String xacDinhLoaiHoaDon() {//Tại Quầy/Đặt Hàng : Dựa vào JTabbedPande nào đg đc chọn.Để thực hiện insert
-        return (tbp_LoaiHoaDon.getSelectedComponent() == tbp_TaiQuay) ? "Tại Quầy" : "Đặt Hàng";
-    }
+//    private String xacDinhLoaiHoaDon() {//Tại Quầy/Đặt Hàng : Dựa vào JTabbedPande nào đg đc chọn.Để thực hiện insert
+//        return (tbp_LoaiHoaDon.getSelectedComponent() == tbp_TaiQuay) ? "Tại Quầy" : "Đặt Hàng";
+//    }
 
     private String xacDinhMaNV(int ID_NV) {//để fill lên bảng HĐ.
         NhanVien nv = nvs.getNV_BY_ID(ID_NV);
@@ -958,14 +969,14 @@ public class JBanHang extends javax.swing.JFrame {
                     update_SL_SPCT_InDSSP(maSPCTChoosed, Integer.valueOf(soLuongMua));//giảm SLSP 
                     update_Tong_GTHĐ(maHDChoosed);
                     fill_ALL_SPCT_To_Table();//Fill lại để cập nhật lại SL
-                    fillThongTinHoaDon_TaiQuay_ByID_HD(maHDChoosed);
+//                    fillThongTinHoaDon_TaiQuay_ByID_HD(maHDChoosed);
                     fill_HĐCT_To_GioHang(maHDChoosed);
                 } else {//--insert HĐCT
                     createHDCT(maHDChoosed, maSPCTChoosed, Integer.valueOf(soLuongMua));
                     update_SL_SPCT_InDSSP(maSPCTChoosed, Integer.valueOf(soLuongMua));//Ở đây là mua --> SL SPCT giảm
                     update_Tong_GTHĐ(maHDChoosed);
                     fill_ALL_SPCT_To_Table();//Fill lại để cập nhật lại SL
-                    fillThongTinHoaDon_TaiQuay_ByID_HD(maHDChoosed);
+//                    fillThongTinHoaDon_TaiQuay_ByID_HD(maHDChoosed);
                     fill_HĐCT_To_GioHang(maHDChoosed);
                 }
             }
@@ -976,8 +987,6 @@ public class JBanHang extends javax.swing.JFrame {
     private void initDSSP() {
         dtmGioHang = (DefaultTableModel) this.tbl_dsGioHang.getModel();
         dtmGioHang.setRowCount(0);
-        fill_ALL_MauSac_To_Cbb();
-        fill_ALL_KichCo_To_Cbb();
         fill_HTTT_To_Cbb();
         fill_Voucher_To_Cbb();
         fill_ALL_SPCT_To_Table();
@@ -991,14 +1000,14 @@ public class JBanHang extends javax.swing.JFrame {
             ImageIcon imageIcon = null;
             JLabel lblImage = new JLabel();//Chứa ảnh 
             if (imageName != null) {
-                imageIcon = new ImageIcon(getClass().getResource("/Product_images/" + imageName));
-                Image image = imageIcon.getImage();//Chuyển sang Image để thiết lập kích thước.
+//                imageIcon = new ImageIcon(getClass().getResource("/Product_images/" + imageName));
+//                Image image = imageIcon.getImage();//Chuyển sang Image để thiết lập kích thước.
                 tbl_dssp.setRowHeight(50);
                 tbl_dssp.getColumnModel().getColumn(0).setPreferredWidth(140);
                 tbl_dssp.getColumnModel().getColumn(2).setPreferredWidth(140);
                 tbl_dssp.getColumnModel().getColumn(7).setPreferredWidth(150);
-                imageIcon = new ImageIcon(image.getScaledInstance(tbl_dssp.getColumnModel().getColumn(0).getWidth(), 50, Image.SCALE_SMOOTH));
-                lblImage.setIcon(imageIcon);
+//                imageIcon = new ImageIcon(image.getScaledInstance(tbl_dssp.getColumnModel().getColumn(0).getWidth(), 50, Image.SCALE_SMOOTH));
+//                lblImage.setIcon(imageIcon);
             }
             tbl_dssp.getColumnModel().getColumn(0).setCellRenderer(new ImageRenderer());
             Object[] data = new Object[]{
@@ -1041,23 +1050,7 @@ public class JBanHang extends javax.swing.JFrame {
         model_Fill_SPCT_To_Table(listSPCT);
     }
 
-    private void fill_ALL_MauSac_To_Cbb() {//dùng vòng lặp duyệt tất cả màu sắc ở danh sách đổ vào combobox.
-        dcbMauSac = (DefaultComboBoxModel) cbb_mauSac2.getModel();
-        dcbMauSac.removeAllElements();
-        List<DmauSac> listMS = msd.selectAll();
-        for (DmauSac ms : listMS) {
-            dcbMauSac.addElement(ms.getName());
-        }
-    }
 
-    private void fill_ALL_KichCo_To_Cbb() {//dùng vòng lặp duyệt tất cả kích cỡ ở danh sách đổ vào combobox.
-        dcbKichCo = (DefaultComboBoxModel) cbb_kichThuoc2.getModel();
-        dcbKichCo.removeAllElements();
-        List<AkichCo> listKC = kcd.selectAll();
-        for (AkichCo kc : listKC) {
-            dcbKichCo.addElement(kc.getName());
-        }
-    }
 
     //-------------------Utility Hóa Đơn + SPCT 
     public static String formatNumber(BigDecimal number) {
@@ -1066,24 +1059,24 @@ public class JBanHang extends javax.swing.JFrame {
         return numberFormat.format(number) + ",000đ";//Định dạng số và chuyển nó thành String.
     }
 
-    public void fillThongTinHoaDon_TaiQuay_ByID_HD(int id_HD) {//Truy vấn HĐ qua id --> Lấy TT fill lên bảng
-        HoaDonBanHang hdbh = bhd.selectTT_HD_TaiQuay_ById(id_HD);
-        txt_maHD.setText("HĐ" + hdbh.getId());
-        //----
-        txt_maKH.setText(khser.getTT_KH_BY_ID(hdbh.getId_khachHang()).getMaKH());//Từ idKH --> KH --> mã.KH
-        txt_tenKH.setText(khser.getTT_KH_BY_ID(hdbh.getId_khachHang()).getName());//Từ idKH --> KH --> Tên KH
-        //----
-        txt_maNV.setText(nvs.getTT_NV_BY_ID(hdbh.getId_nhanVien()).getMaNV());//Từ idNV --> NV --> mã.NV
-        //----
-        txt_ngayTaoHoaDon.setText(hdbh.getNgayTao().toString());
-        //---- 
-
-        txt_tongGiaTriHD.setText(moneyFormat(Integer.valueOf(hdbh.getTongGiaTriHD().toString())) + ",000đ");
-
-        txt_thanhToan.setText(moneyFormat(Integer.valueOf(hdbh.getThanhToan().toString())) + ",000đ");
-
-        txt_tienThua.setText(moneyFormat(Integer.valueOf(hdbh.getTienThua().toString())) + ",000đ");
-    }
+//    public void fillThongTinHoaDon_TaiQuay_ByID_HD(int id_HD) {//Truy vấn HĐ qua id --> Lấy TT fill lên bảng
+//        HoaDonBanHang hdbh = bhd.selectTT_HD_TaiQuay_ById(id_HD);
+//        txt_maHD.setText("HĐ" + hdbh.getId());
+//        //----
+//        txt_maKH.setText(khser.getTT_KH_BY_ID(hdbh.getId_khachHang()).getMaKH());//Từ idKH --> KH --> mã.KH
+//        txt_tenKH.setText(khser.getTT_KH_BY_ID(hdbh.getId_khachHang()).getName());//Từ idKH --> KH --> Tên KH
+//        //----
+//        txt_maNV.setText(nvs.getTT_NV_BY_ID(hdbh.getId_nhanVien()).getMaNV());//Từ idNV --> NV --> mã.NV
+//        //----
+//        txt_ngayTaoHoaDon.setText(hdbh.getNgayTao().toString());
+//        //---- 
+//
+//        txt_tongGiaTriHD.setText(moneyFormat(Integer.valueOf(hdbh.getTongGiaTriHD().toString())) + ",000đ");
+//
+//        txt_thanhToan.setText(moneyFormat(Integer.valueOf(hdbh.getThanhToan().toString())) + ",000đ");
+//
+//        txt_tienThua.setText(moneyFormat(Integer.valueOf(hdbh.getTienThua().toString())) + ",000đ");
+//    }
 
     public String moneyFormat(Integer number) {
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
@@ -1284,93 +1277,93 @@ public class JBanHang extends javax.swing.JFrame {
         });
     }
 
-    private void openViewKhachHang() {
-        ChonThongTinKH kh = new ChonThongTinKH(this, true);
-        kh.setVisible(true);
-    }
+//    private void openViewKhachHang() {
+//        ChonThongTinKH kh = new ChonThongTinKH(this, true);
+//        kh.setVisible(true);
+//    }
 
     //chọn Khách Hàng
-    public void chooseKH(KhachHang kh) {
-        this.chonKH(kh);
-    }
+//    public void chooseKH(KhachHang kh) {
+//        this.chonKH(kh);
+//    }
 
-    @Override
-    public void chonKH(KhachHang kh) {//Chọn KH là upda lại kh trong hóa đơn đó
-        txt_maKH.setText(kh.getMaKH());
-        txt_tenKH.setText(kh.getName());
-        int id_KH = kh.getId();
-        String id_HDString = tbl_dshd.getValueAt(indexInvoiceChoosed, 1).toString().substring(2);
-        if (bhd.update_ID_KH(Integer.valueOf(id_HDString), id_KH) == 1) {
-            MsgBox.alter(this, "Thay đổi thông tin khách hàng trong hóa đơn thành công");
-        } else {
-            MsgBox.alter(this, "Thay đổi thông tin khách hàng thất bại");
-        }
-    }
+//    @Override
+//    public void chonKH(KhachHang kh) {//Chọn KH là upda lại kh trong hóa đơn đó
+//        txt_maKH.setText(kh.getMaKH());
+//        txt_tenKH.setText(kh.getName());
+//        int id_KH = kh.getId();
+//        String id_HDString = tbl_dshd.getValueAt(indexInvoiceChoosed, 1).toString().substring(2);
+//        if (bhd.update_ID_KH(Integer.valueOf(id_HDString), id_KH) == 1) {
+//            MsgBox.alter(this, "Thay đổi thông tin khách hàng trong hóa đơn thành công");
+//        } else {
+//            MsgBox.alter(this, "Thay đổi thông tin khách hàng thất bại");
+//        }
+//    }
 
     //
-    public boolean checkValidation_TienKhachDua_CK() {
-        if (dcbHTTT.getSelectedItem().equals("Tiền Mặt") || dcbHTTT.getSelectedItem().equals("Kết Hợp")) {
-            String tienKhachDuaStr = txt_tienKhachDua.getText();
-            if (tienKhachDuaStr == null && !isBigDecimal(tienKhachDuaStr)) {//check trống
-                MsgBox.alter(this, "Không để trống số tiền khách đưa");
-                return false;
-            }
-        }//Tiền mặt
-        if (dcbHTTT.getSelectedItem().equals("Chuyển Khoản") || dcbHTTT.getSelectedItem().equals("Kết Hợp")) {
-            String tienKhachCK = txt_tienKhachCK.getText();
-            if (tienKhachCK == null && !isBigDecimal(tienKhachCK)) {
-                MsgBox.alter(this, "Không để trống tiền khách chuyển khoảng ");
-                return false;
-            }
-        }//chuyển khoản
-        return true;
-    }
-
-    public void hopLeDeThanhToan() {//
-        Double tienKhachDuaDouble = Double.valueOf(txt_tienKhachDua.getText());
-        BigDecimal tienKhachDuaBig = BigDecimal.valueOf(tienKhachDuaDouble);
-        int id_HDString = Integer.valueOf(tbl_dshd.getValueAt(indexInvoiceChoosed, 1).toString().substring(2));
-        BigDecimal tongGTHD = bhd.selectTT_HD_TaiQuay_ById(id_HDString).getTongGiaTriHD();
-//        BigDecimal tienThua = tongGTHD - tienKhachDuaBig;
-    }
-
-    // Hàm kiểm tra xem một chuỗi có phải là số không
-    private boolean isBigDecimal(String str) {
-        try {
-            BigDecimal bigDecimal = new BigDecimal(str);
-            MsgBox.alter(this, "Yêu cầu nhập tiền mặt/Chuyển khoản là số");
-            return true;
-        } catch (NumberFormatException | NullPointerException e) {
-            return false;
-        }
-    }
-
-    private void updateTienDua_TienCK() {//Cập nhật lại tiền đưa / tiền ck khi chọn hđ hoặc chọn combobox loại thanh toán.
-        String httt_choosed = dcbHTTT.getSelectedItem().toString();
-        switch (httt_choosed) {
-            case "Tiền Mặt":
-                txt_tienKhachDua.setEnabled(true);
-                txt_tienKhachDua.setText(null);
-                //--
-                txt_tienKhachCK.setEnabled(false);//Đóng chỗ nhập tiền khách CK đi ( Đặt hàng )
-                txt_tienKhachCK.setText("0đ");
-                break;
-            case "Chuyển Khoản":
-                txt_tienKhachCK.setEnabled(true);
-                txt_tienKhachCK.setText(null);
-                //----
-                txt_tienKhachDua.setEnabled(false);
-                txt_tienKhachDua.setText("0đ");
-                break;
-            case "Kết Hợp":
-                txt_tienKhachCK.setEnabled(true);
-                txt_tienKhachDua.setEnabled(true);
-                txt_tienKhachDua.setText(null);
-                txt_tienKhachCK.setText(null);
-                break;
-            default:
-                break;
-        }
-        txt_tienThua.setText(null);
-    }
+//    public boolean checkValidation_TienKhachDua_CK() {
+//        if (dcbHTTT.getSelectedItem().equals("Tiền Mặt") || dcbHTTT.getSelectedItem().equals("Kết Hợp")) {
+//            String tienKhachDuaStr = txt_tienKhachDua.getText();
+//            if (tienKhachDuaStr == null && !isBigDecimal(tienKhachDuaStr)) {//check trống
+//                MsgBox.alter(this, "Không để trống số tiền khách đưa");
+//                return false;
+//            }
+//        }//Tiền mặt
+//        if (dcbHTTT.getSelectedItem().equals("Chuyển Khoản") || dcbHTTT.getSelectedItem().equals("Kết Hợp")) {
+//            String tienKhachCK = txt_tienKhachCK.getText();
+//            if (tienKhachCK == null && !isBigDecimal(tienKhachCK)) {
+//                MsgBox.alter(this, "Không để trống tiền khách chuyển khoảng ");
+//                return false;
+//            }
+//        }//chuyển khoản
+//        return true;
+//    }
+//
+//    public void hopLeDeThanhToan() {//
+//        Double tienKhachDuaDouble = Double.valueOf(txt_tienKhachDua.getText());
+//        BigDecimal tienKhachDuaBig = BigDecimal.valueOf(tienKhachDuaDouble);
+//        int id_HDString = Integer.valueOf(tbl_dshd.getValueAt(indexInvoiceChoosed, 1).toString().substring(2));
+//        BigDecimal tongGTHD = bhd.selectTT_HD_TaiQuay_ById(id_HDString).getTongGiaTriHD();
+////        BigDecimal tienThua = tongGTHD - tienKhachDuaBig;
+//    }
+//
+//    // Hàm kiểm tra xem một chuỗi có phải là số không
+//    private boolean isBigDecimal(String str) {
+//        try {
+//            BigDecimal bigDecimal = new BigDecimal(str);
+//            MsgBox.alter(this, "Yêu cầu nhập tiền mặt/Chuyển khoản là số");
+//            return true;
+//        } catch (NumberFormatException | NullPointerException e) {
+//            return false;
+//        }
+//    }
+//
+//    private void updateTienDua_TienCK() {//Cập nhật lại tiền đưa / tiền ck khi chọn hđ hoặc chọn combobox loại thanh toán.
+//        String httt_choosed = dcbHTTT.getSelectedItem().toString();
+//        switch (httt_choosed) {
+//            case "Tiền Mặt":
+//                txt_tienKhachDua.setEnabled(true);
+//                txt_tienKhachDua.setText(null);
+//                //--
+//                txt_tienKhachCK.setEnabled(false);//Đóng chỗ nhập tiền khách CK đi ( Đặt hàng )
+//                txt_tienKhachCK.setText("0đ");
+//                break;
+//            case "Chuyển Khoản":
+//                txt_tienKhachCK.setEnabled(true);
+//                txt_tienKhachCK.setText(null);
+//                //----
+//                txt_tienKhachDua.setEnabled(false);
+//                txt_tienKhachDua.setText("0đ");
+//                break;
+//            case "Kết Hợp":
+//                txt_tienKhachCK.setEnabled(true);
+//                txt_tienKhachDua.setEnabled(true);
+//                txt_tienKhachDua.setText(null);
+//                txt_tienKhachCK.setText(null);
+//                break;
+//            default:
+//                break;
+//        }
+//        txt_tienThua.setText(null);
+//    }
 }
