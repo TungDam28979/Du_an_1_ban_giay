@@ -51,6 +51,7 @@ public class JBanHang extends javax.swing.JFrame {
         initComponents();
         initDSSP(); //Fill lên DS_SPCT với trạng thái SP là "Đang Kinh Doanh"
         initHD();   //Fill lên hóa đơn vs trạng thái "Chờ thanh toán".
+        //aaaa
        
     }
 
