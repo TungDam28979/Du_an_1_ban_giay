@@ -24,6 +24,33 @@ public class NhanVien {
     public NhanVien() {
     }
 
+    public NhanVien( String maNV, boolean chucVu, String hoTen, boolean gioiTinh, Date ngaySinh, String sdt, String email, String matKhau, String diaChi, int nguoiTao, int nguoiSua, Date ngayTao, Date ngaySua, boolean deleted) {
+        this.maNV = maNV;
+        this.chucVu = chucVu;
+        this.hoTen = hoTen;
+        this.gioiTinh = gioiTinh;
+        this.ngaySinh = ngaySinh;
+        this.sdt = sdt;
+        this.email = email;
+        this.matKhau = matKhau;
+        this.diaChi = diaChi;
+        this.nguoiTao = nguoiTao;
+        this.nguoiSua = nguoiSua;
+        this.ngayTao = ngayTao;
+        this.ngaySua = ngaySua;
+        this.deleted = deleted;
+    }
+    public NhanVien( String maNV, boolean chucVu, String hoTen, boolean gioiTinh, Date ngaySinh, String sdt, String email, String diaChi) {
+        this.maNV = maNV;
+        this.chucVu = chucVu;
+        this.hoTen = hoTen;
+        this.gioiTinh = gioiTinh;
+        this.ngaySinh = ngaySinh;
+        this.sdt = sdt;
+        this.email = email;
+        this.diaChi = diaChi;
+    }
+    
     public NhanVien(int id, String maNV, boolean chucVu, String hoTen, boolean gioiTinh, Date ngaySinh, String sdt, String email, String matKhau, String diaChi, int nguoiTao, int nguoiSua, Date ngayTao, Date ngaySua, boolean deleted) {
         this.id = id;
         this.maNV = maNV;
@@ -41,6 +68,7 @@ public class NhanVien {
         this.ngaySua = ngaySua;
         this.deleted = deleted;
     }
+
 
     public int getId() {
         return id;

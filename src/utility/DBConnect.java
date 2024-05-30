@@ -6,10 +6,10 @@ import java.sql.DriverManager;
 
 
 public class DBConnect {
-     private static final String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+    private static final String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private static final String url = """
-            jdbc:sqlserver://localhost:1433;databaseName=DB_DA1_Final;
-            encrypt=true;trustServerCertificate=true;""";
+                                      jdbc:sqlserver://localhost:1433;databaseName=DB_DA1_Final;
+                                      encrypt=true;trustServerCertificate=true;""";
     private static final String user = "sa";
     private static final String password = "123";
 
