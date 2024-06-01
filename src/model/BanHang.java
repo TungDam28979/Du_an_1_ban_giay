@@ -6,7 +6,7 @@ import java.util.Date;
 
 
 public class BanHang {
-     private int idsanpham;
+    private int idsanpham;
     private String tensp;
     private String thuonghieusp;
     private int sizesp;
@@ -27,7 +27,7 @@ public class BanHang {
     public BanHang() {
     }
 
-    public BanHang(int idsanpham, String tensp, String thuonghieusp, int sizesp, String mausp, int soluong, BigDecimal giasp, int idhdct, int idhoadon, String tenkhachhang, String sodienthoai, String phieugiamgia, Date ngaytao, int hinhthucthanhtoan, String tenphieugiamgia, float giatriphieugiamgia) {
+    public BanHang(int idsanpham, String tensp, String thuonghieusp, int sizesp, String mausp, int soluong, BigDecimal giasp) {
         this.idsanpham = idsanpham;
         this.tensp = tensp;
         this.thuonghieusp = thuonghieusp;
@@ -35,16 +35,42 @@ public class BanHang {
         this.mausp = mausp;
         this.soluong = soluong;
         this.giasp = giasp;
-        this.idhdct = idhdct;
+    }
+
+    public BanHang(int idhoadon, String tenkhachhang, String sodienthoai, String phieugiamgia, Date ngaytao, int hinhthucthanhtoan) {
         this.idhoadon = idhoadon;
         this.tenkhachhang = tenkhachhang;
         this.sodienthoai = sodienthoai;
         this.phieugiamgia = phieugiamgia;
         this.ngaytao = ngaytao;
         this.hinhthucthanhtoan = hinhthucthanhtoan;
+    }
+
+    public int getIdhdct() {
+        return idhdct;
+    }
+
+    public void setIdhdct(int idhdct) {
+        this.idhdct = idhdct;
+    }
+
+    public String getTenphieugiamgia() {
+        return tenphieugiamgia;
+    }
+
+    public void setTenphieugiamgia(String tenphieugiamgia) {
         this.tenphieugiamgia = tenphieugiamgia;
+    }
+
+    public float getGiatriphieugiamgia() {
+        return giatriphieugiamgia;
+    }
+
+    public void setGiatriphieugiamgia(float giatriphieugiamgia) {
         this.giatriphieugiamgia = giatriphieugiamgia;
     }
+    
+    
 
     public int getIdsanpham() {
         return idsanpham;
@@ -102,14 +128,6 @@ public class BanHang {
         this.giasp = giasp;
     }
 
-    public int getIdhdct() {
-        return idhdct;
-    }
-
-    public void setIdhdct(int idhdct) {
-        this.idhdct = idhdct;
-    }
-
     public int getIdhoadon() {
         return idhoadon;
     }
@@ -156,27 +174,5 @@ public class BanHang {
 
     public void setHinhthucthanhtoan(int hinhthucthanhtoan) {
         this.hinhthucthanhtoan = hinhthucthanhtoan;
-    }
-
-    public String getTenphieugiamgia() {
-        return tenphieugiamgia;
-    }
-
-    public void setTenphieugiamgia(String tenphieugiamgia) {
-        this.tenphieugiamgia = tenphieugiamgia;
-    }
-
-    public float getGiatriphieugiamgia() {
-        return giatriphieugiamgia;
-    }
-
-    public void setGiatriphieugiamgia(float giatriphieugiamgia) {
-        this.giatriphieugiamgia = giatriphieugiamgia;
-    }
-    
-     public Object[] toDataRow(){
-        return new Object[]{this.giasp, this.giatriphieugiamgia, this.hinhthucthanhtoan, this.idhdct, this.idhoadon,
-                            this.idsanpham, this.mausp, this.ngaytao, this.phieugiamgia, this.sizesp, this.sodienthoai,
-                            this.soluong, this.tenkhachhang, this.tenphieugiamgia, this.tensp, this.thuonghieusp};
     }
 }

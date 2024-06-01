@@ -30,7 +30,19 @@ public class HoaDon {
     public HoaDon() {
     }
 
-    public HoaDon(int id, String idKH, String idNV, int idPGG, int idHTTT, String name, String phone, String address, Date ngayNNH, boolean trangThai, int nguoiTao, int nguoiSua, Date ngayTao, Date ngaySua, double thanhTien) {
+    public HoaDon(int id, String address, Date ngayNNH) {
+        this.id = id;
+        this.address = address;
+        this.ngayNNH = ngayNNH;
+    }
+
+    public HoaDon(String address, double thanhTien, Date ngayNNH) {
+        this.address = address;
+        this.thanhTien = thanhTien;
+        this.ngayNNH = ngayNNH;
+    }
+
+    public HoaDon(int id, String idKH, String idNV, int idPGG, int idHTTT, String name, String phone, String address, Date ngayNNH, boolean trangThai, int nguoiTao, int nguoiSua, Date ngayTao, Date ngaySua) {
         this.id = id;
         this.idKH = idKH;
         this.idNV = idNV;
@@ -45,7 +57,6 @@ public class HoaDon {
         this.nguoiSua = nguoiSua;
         this.ngayTao = ngayTao;
         this.ngaySua = ngaySua;
-        this.thanhTien = thanhTien;
     }
 
     public int getId() {
@@ -112,6 +123,14 @@ public class HoaDon {
         this.address = address;
     }
 
+    public double getThanhTien() {
+        return thanhTien;
+    }
+
+    public void setThanhTien(int thanhTien) {
+        this.thanhTien = thanhTien;
+    }
+
     public Date getNgayNNH() {
         return ngayNNH;
     }
@@ -158,19 +177,5 @@ public class HoaDon {
 
     public void setNgaySua(Date ngaySua) {
         this.ngaySua = ngaySua;
-    }
-
-    public double getThanhTien() {
-        return thanhTien;
-    }
-
-    public void setThanhTien(double thanhTien) {
-        this.thanhTien = thanhTien;
-    }
-    
-    
-    public Object[] toDataRow(){
-        return new Object[]{this.id,this.name, this.address, this.idHTTT, this.idKH, this.idNV, this.idNV, this.idPGG, this.ngayNNH,
-         this.ngaySua, this.ngayTao, this.nguoiSua, this.nguoiTao, this.phone, this.thanhTien, this.trangThai};
     }
 }
