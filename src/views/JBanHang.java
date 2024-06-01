@@ -4,6 +4,7 @@ package views;
 import BanHangDAO.BanHangDAO;
 import BanHangDAO.HDCT_DAO;
 import BanHangDAO.HTTT_DAO;
+import BanHangDAO.ThanhToanDAO;
 import BanHangDAO.TrangThaiHoaDonDAO;
 import BanHangDAO.TrangThaiThanhToanDAO;
 import ModelBanHang.HDCTBanHang;
@@ -37,6 +38,7 @@ import model.GetChucVu;
 import model.Ispct;
 import model.KhachHang;
 import model.NhanVien;
+import model.ThanhToanModel;
 import model.Voucher;
 import service.KhachHangService;
 import service.NhanVienService;
@@ -560,39 +562,6 @@ public class JBanHang extends javax.swing.JFrame {
     pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn2_xoaDon1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2_xoaDon1ActionPerformed
-        if (indexInvoiceChoosed != -1) {
-            int maHD = Integer.valueOf(this.tbl_dshd.getValueAt(indexInvoiceChoosed, 1).toString().substring(2));
-            if (MsgBox.confirm(this, "Xác nhận xóa hóa đơn HĐ" + maHD)) {//TH1 : <=> xóa HĐ + HĐCT liên quan + hoàn lại SL spct ( nếu có trong giỏ hàng )
-                if (tbl_dsGioHang.getRowCount() != 0) {//Upda lại SL cho spct
-                    for (int i = 0; i < tbl_dsGioHang.getRowCount(); i++) {
-                        int SL_hoan = (int) tbl_dsGioHang.getValueAt(i, 3);
-                        int id_SPCT = Integer.valueOf(tbl_dsGioHang.getValueAt(i, 1).toString().substring(5));
-                        int SL_ton = prdd.selectById_To_ThemNhanh(id_SPCT).getSoLuong();//Lấy SL tồn SPCT
-                        int SL_update_When_Delete_Invoice = SL_hoan + SL_ton;
-                        prdd.updateSL_Ton_When_Insert_HDCT(id_SPCT, SL_update_When_Delete_Invoice);
-                    }
-                }
-                bhd.delete_HD_By_ID(maHD);
-                hdctd.delete_HDCT_By_ID_HD(maHD);
-
-                Fill_ListHD_By_Status();//Fill lại bảng HĐ.
-                fill_ALL_SPCT_To_Table();//Fill lại bảng SPCT để cập nhật SL
-                dtmGioHang.setRowCount(0);//xóa bảng giỏ hàng
-
-                indexInvoiceChoosed = -1;//Chưa chọn  hđ nào trên bảng khi xóa
-                lbl_HDChoosed.setText(String.valueOf(indexInvoiceChoosed));
-                clearTT_HD_TaiQuay();
-                clearKH();
-                MsgBox.alter(this, "Xóa hóa đơn HĐ" + maHD + " thành công");
-            } else {
-                MsgBox.alter(this, "Hủy xóa đơn");
-            }
-        } else if (indexInvoiceChoosed == -1) {
-            MsgBox.alter(this, "Chọn xóa đơn để xóa");
-        }
-    }//GEN-LAST:event_btn2_xoaDon1ActionPerformed
-
     private void tbl_dshdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_dshdMouseClicked
         indexInvoiceChoosed = this.tbl_dshd.getSelectedRow();//Thiết lập đơn hàng đang được chọn.
         if (indexInvoiceChoosed != -1) {
@@ -617,18 +586,6 @@ public class JBanHang extends javax.swing.JFrame {
             System.out.println(SPCTChoosed_On_GioHang);
         }
     }//GEN-LAST:event_tbl_dsGioHangMouseClicked
-
-    private void txt_tienKhachDuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_tienKhachDuaActionPerformed
-        
-    }//GEN-LAST:event_txt_tienKhachDuaActionPerformed
-
-    private void txt_tienKhachCKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_tienKhachCKActionPerformed
-        
-    }//GEN-LAST:event_txt_tienKhachCKActionPerformed
-
-    private void btn2_xoaDon2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2_xoaDon2ActionPerformed
-        clearTT_HD_TaiQuay();
-    }//GEN-LAST:event_btn2_xoaDon2ActionPerformed
 
     private void btn3_HuySPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3_HuySPActionPerformed
         if (tbl_dsGioHang.getSelectedRow() != -1) {
@@ -680,9 +637,42 @@ public class JBanHang extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tbl_dsspMouseClicked
 
-    private void cbb_hinhThucThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_hinhThucThanhToanActionPerformed
-        updateTienDua_TienCK();
-    }//GEN-LAST:event_cbb_hinhThucThanhToanActionPerformed
+    private void btn2_xoaDon1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2_xoaDon1ActionPerformed
+        if (indexInvoiceChoosed != -1) {
+            int maHD = Integer.valueOf(this.tbl_dshd.getValueAt(indexInvoiceChoosed, 1).toString().substring(2));
+            if (MsgBox.confirm(this, "Xác nhận xóa hóa đơn HĐ" + maHD)) {//TH1 : <=> xóa HĐ + HĐCT liên quan + hoàn lại SL spct ( nếu có trong giỏ hàng )
+                if (tbl_dsGioHang.getRowCount() != 0) {//Upda lại SL cho spct
+                    for (int i = 0; i < tbl_dsGioHang.getRowCount(); i++) {
+                        int SL_hoan = (int) tbl_dsGioHang.getValueAt(i, 3);
+                        int id_SPCT = Integer.valueOf(tbl_dsGioHang.getValueAt(i, 1).toString().substring(5));
+                        int SL_ton = prdd.selectById_To_ThemNhanh(id_SPCT).getSoLuong();//Lấy SL tồn SPCT
+                        int SL_update_When_Delete_Invoice = SL_hoan + SL_ton;
+                        prdd.updateSL_Ton_When_Insert_HDCT(id_SPCT, SL_update_When_Delete_Invoice);
+                    }
+                }
+                bhd.delete_HD_By_ID(maHD);
+                hdctd.delete_HDCT_By_ID_HD(maHD);
+
+                Fill_ListHD_By_Status();//Fill lại bảng HĐ.
+                fill_ALL_SPCT_To_Table();//Fill lại bảng SPCT để cập nhật SL
+                dtmGioHang.setRowCount(0);//xóa bảng giỏ hàng
+
+                indexInvoiceChoosed = -1;//Chưa chọn  hđ nào trên bảng khi xóa
+                lbl_HDChoosed.setText(String.valueOf(indexInvoiceChoosed));
+                clearTT_HD_TaiQuay();
+                clearKH();
+                MsgBox.alter(this, "Xóa hóa đơn HĐ" + maHD + " thành công");
+            } else {
+                MsgBox.alter(this, "Hủy xóa đơn");
+            }
+        } else if (indexInvoiceChoosed == -1) {
+            MsgBox.alter(this, "Chọn xóa đơn để xóa");
+        }
+    }//GEN-LAST:event_btn2_xoaDon1ActionPerformed
+
+    private void btn2_xoaDon2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2_xoaDon2ActionPerformed
+        clearTT_HD_TaiQuay();
+    }//GEN-LAST:event_btn2_xoaDon2ActionPerformed
 
     private void txt_tienKhachDuaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_tienKhachDuaKeyReleased
         try {
@@ -697,7 +687,7 @@ public class JBanHang extends javax.swing.JFrame {
                     } else {//TH: CK && TH KH nhưng trống tiền đựa
                         tienTra = txt_tienKhachDua.getText();
                     }
-                    String tienThua = String.valueOf(Integer.parseInt(tienTra) - Integer.valueOf(txt_thanhToan.getText().substring(0, lastCommaIndex).replaceAll(",", "")));//Tiền thừa = tiền khách đưa -tiền phải thanh toán 
+                    String tienThua = String.valueOf(Integer.parseInt(tienTra) - Integer.valueOf(txt_thanhToan.getText().substring(0, lastCommaIndex).replaceAll(",", "")));//Tiền thừa = tiền khách đưa -tiền phải thanh toán
                     txt_tienThua.setText(String.valueOf(tienThua));
                 } else if ("0".equals(tienPhaiThanhToan)) {//TH chưa chọn sp cho hóa đơn mà nhập số tiền.
                     MsgBox.alter(this, "Vui lòng chọn sản phẩm trước mới nhập tiền khách đưa");
@@ -722,6 +712,10 @@ public class JBanHang extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txt_tienKhachDuaKeyReleased
 
+    private void txt_tienKhachDuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_tienKhachDuaActionPerformed
+
+    }//GEN-LAST:event_txt_tienKhachDuaActionPerformed
+
     private void txt_tienKhachCKKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_tienKhachCKKeyReleased
         try {
             String httt_choosed = dcbHTTT.getSelectedItem().toString();
@@ -735,7 +729,7 @@ public class JBanHang extends javax.swing.JFrame {
                     } else {//TH: CK && TH KH nhưng trống tiền đựa
                         tienTra = txt_tienKhachCK.getText();
                     }
-                    String tienThua = String.valueOf(Integer.parseInt(tienTra) - Integer.valueOf(txt_thanhToan.getText().substring(0, lastCommaIndex).replaceAll(",", "")));//Tiền thừa = tiền khách đưa -tiền phải thanh toán 
+                    String tienThua = String.valueOf(Integer.parseInt(tienTra) - Integer.valueOf(txt_thanhToan.getText().substring(0, lastCommaIndex).replaceAll(",", "")));//Tiền thừa = tiền khách đưa -tiền phải thanh toán
                     txt_tienThua.setText(String.valueOf(tienThua));
                 } else if ("0".equals(tienPhaiThanhToan)) {//TH chưa chọn sp cho hóa đơn mà nhập số tiền.
                     MsgBox.alter(this, "Vui lòng chọn sản phẩm trước mới nhập tiền khách ck");
@@ -760,8 +754,16 @@ public class JBanHang extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txt_tienKhachCKKeyReleased
 
+    private void txt_tienKhachCKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_tienKhachCKActionPerformed
+
+    }//GEN-LAST:event_txt_tienKhachCKActionPerformed
+
+    private void cbb_hinhThucThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_hinhThucThanhToanActionPerformed
+        updateTienDua_TienCK();
+    }//GEN-LAST:event_cbb_hinhThucThanhToanActionPerformed
+
     private void btn3_HuySP1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3_HuySP1ActionPerformed
-//        this.openViewKhachHang();
+        this.openViewKhachHang();
     }//GEN-LAST:event_btn3_HuySP1ActionPerformed
 
     /**
@@ -1293,28 +1295,27 @@ public class JBanHang extends javax.swing.JFrame {
     }
 
 
-//    private void openViewKhachHang() {
-//        ChonThongTinKH kh = new ChonThongTinKH(this, true);
-//        kh.setVisible(true);
-//    }
-//
-////    chọn Khách Hàng
-//    public void chooseKH(KhachHang kh) {
-//        this.chonKH(kh);
-//    }
-//
-//    @Override
-//    public void chonKH(KhachHang kh) {//Chọn KH là upda lại kh trong hóa đơn đó
-//        txt_maKH.setText(kh.getMaKH());
-//        txt_tenKH.setText(kh.getName());
-//        int id_KH = kh.getId();
-//        String id_HDString = tbl_dshd.getValueAt(indexInvoiceChoosed, 1).toString().substring(2);
-//        if (bhd.update_ID_KH(Integer.valueOf(id_HDString), id_KH) == 1) {
-//            MsgBox.alter(this, "Thay đổi thông tin khách hàng trong hóa đơn thành công");
-//        } else {
-//            MsgBox.alter(this, "Thay đổi thông tin khách hàng thất bại");
-//        }
-//    }
+    private void openViewKhachHang() {
+        ChonThongTinKH kh = new ChonThongTinKH(this, true);
+        kh.setVisible(true);
+    }
+
+//    chọn Khách Hàng
+    public void chooseKH(KhachHang kh) {
+        this.chonKH(kh);
+    }
+
+    public void chonKH(KhachHang kh) {//Chọn KH là upda lại kh trong hóa đơn đó
+        txt_maKH.setText(kh.getMaKH());
+        txt_tenKH.setText(kh.getName());
+        int id_KH = kh.getId();
+        String id_HDString = tbl_dshd.getValueAt(indexInvoiceChoosed, 1).toString().substring(2);
+        if (bhd.update_ID_KH(Integer.valueOf(id_HDString), id_KH) == 1) {
+            MsgBox.alter(this, "Thay đổi thông tin khách hàng trong hóa đơn thành công");
+        } else {
+            MsgBox.alter(this, "Thay đổi thông tin khách hàng thất bại");
+        }
+    }
 
     //
     public boolean checkValidation_TienKhachDua_CK() {

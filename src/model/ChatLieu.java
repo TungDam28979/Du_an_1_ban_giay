@@ -10,7 +10,7 @@ import java.util.Date;
  *
  * @author Admin
  */
-public class ChatLieu {
+public class ChatLieu implements interfaceModels {
     private int id;
     private String name;
     private String status;
@@ -19,7 +19,7 @@ public class ChatLieu {
     private Date create_at;
     private Date update_at;
     private int deleted;
-
+    
     public ChatLieu() {
     }
 
@@ -97,8 +97,14 @@ public class ChatLieu {
     public void setDeleted(int deleted) {
         this.deleted = deleted;
     }
-    
-    public Object[] toDataRow(){
-        return new Object[]{this.id,this.name, this.status, this.create_by, this.update_by, this.create_at, this.update_at, this.deleted};
+
+    @Override
+    public String getName_TT_Insert() {
+        return name;
+    }
+
+    @Override
+    public int getId_TT_Insert() {
+        return id;
     }
 }
