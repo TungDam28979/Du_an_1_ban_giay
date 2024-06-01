@@ -1012,14 +1012,14 @@ public class JBanHang extends javax.swing.JFrame {
                     update_SL_SPCT_InDSSP(maSPCTChoosed, Integer.valueOf(soLuongMua));//giảm SLSP 
                     update_Tong_GTHĐ(maHDChoosed);
                     fill_ALL_SPCT_To_Table();//Fill lại để cập nhật lại SL
-//                    fillThongTinHoaDon_TaiQuay_ByID_HD(maHDChoosed);
+                    fillThongTinHoaDon_TaiQuay_ByID_HD(maHDChoosed);
                     fill_HĐCT_To_GioHang(maHDChoosed);
                 } else {//--insert HĐCT
                     createHDCT(maHDChoosed, maSPCTChoosed, Integer.valueOf(soLuongMua));
                     update_SL_SPCT_InDSSP(maSPCTChoosed, Integer.valueOf(soLuongMua));//Ở đây là mua --> SL SPCT giảm
                     update_Tong_GTHĐ(maHDChoosed);
                     fill_ALL_SPCT_To_Table();//Fill lại để cập nhật lại SL
-//                    fillThongTinHoaDon_TaiQuay_ByID_HD(maHDChoosed);
+                    fillThongTinHoaDon_TaiQuay_ByID_HD(maHDChoosed);
                     fill_HĐCT_To_GioHang(maHDChoosed);
                 }
             }
@@ -1043,14 +1043,14 @@ public class JBanHang extends javax.swing.JFrame {
             ImageIcon imageIcon = null;
             JLabel lblImage = new JLabel();//Chứa ảnh 
             if (imageName != null) {
-//                imageIcon = new ImageIcon(getClass().getResource("/Product_images/" + imageName));
-//                Image image = imageIcon.getImage();//Chuyển sang Image để thiết lập kích thước.
+                imageIcon = new ImageIcon(getClass().getResource("/Product_images/" + imageName));
+                Image image = imageIcon.getImage();//Chuyển sang Image để thiết lập kích thước.
                 tbl_dssp.setRowHeight(50);
                 tbl_dssp.getColumnModel().getColumn(0).setPreferredWidth(140);
                 tbl_dssp.getColumnModel().getColumn(2).setPreferredWidth(140);
                 tbl_dssp.getColumnModel().getColumn(7).setPreferredWidth(150);
-//                imageIcon = new ImageIcon(image.getScaledInstance(tbl_dssp.getColumnModel().getColumn(0).getWidth(), 50, Image.SCALE_SMOOTH));
-//                lblImage.setIcon(imageIcon);
+                imageIcon = new ImageIcon(image.getScaledInstance(tbl_dssp.getColumnModel().getColumn(0).getWidth(), 50, Image.SCALE_SMOOTH));
+                lblImage.setIcon(imageIcon);
             }
             tbl_dssp.getColumnModel().getColumn(0).setCellRenderer(new ImageRenderer());
             Object[] data = new Object[]{
@@ -1265,7 +1265,7 @@ public class JBanHang extends javax.swing.JFrame {
                 }
                 update_Tong_GTHĐ(id_HD);
                 fill_ALL_SPCT_To_Table();//Fill lại để cập nhật lại SL
-//                fillThongTinHoaDon_TaiQuay_ByID_HD(maHDChoosed);
+                fillThongTinHoaDon_TaiQuay_ByID_HD(maHDChoosed);
                 fill_HĐCT_To_GioHang(maHDChoosed);
             }
         }
@@ -1304,6 +1304,7 @@ public class JBanHang extends javax.swing.JFrame {
     public void chooseKH(KhachHang kh) {
         this.chonKH(kh);
     }
+
 
     public void chonKH(KhachHang kh) {//Chọn KH là upda lại kh trong hóa đơn đó
         txt_maKH.setText(kh.getMaKH());

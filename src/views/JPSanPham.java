@@ -1,4 +1,3 @@
-
 package views;
 
 import dao.ChatLieuDAO;
@@ -73,7 +72,7 @@ public class JPSanPham extends javax.swing.JFrame {
         initSPCT(); //Fill SPCT lên khi khởi chạy
         initTTSP(); //Fill kich thước lên khi khởi chạy
     }
-    
+
     JPSanPham fa = this; //gán cho nó đến đối tượng hiện tại để khi đóng giao diện thêm nhanh thì nó thực hiện fill lại bảng
 
     @SuppressWarnings("unchecked")
@@ -1785,7 +1784,7 @@ public class JPSanPham extends javax.swing.JFrame {
         String lbl_thongBao = (rdo_HienThi_ALL_SPCT.isSelected()) ? "Bỏ chọn hiện thị tất cả để chuyển trang" : "";
         lbl_thongBao_SPCT.setText(lbl_thongBao);
     }
-    
+
     private void txt_timKiemSPCTFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_timKiemSPCTFocusGained
         //Sự kiện xảy ra khi thành phần txt_timKiemSP UI nhận đc trạng thái focus.
         if (txt_timKiemSPCT.getText().equals("Tìm kiếm SPCT theo Mã SPCT , tên , thuộc tính ..... ")) {
@@ -2938,7 +2937,7 @@ public class JPSanPham extends javax.swing.JFrame {
     ChatLieuDAO cld = new ChatLieuDAO();
     DeGiayDao dgd = new DeGiayDao();
     DayGiayDao dgd2 = new DayGiayDao();
-    
+
     //Modun các bảng 
     DefaultTableModel dtmDSSP;
     DefaultTableModel dtmDSSPCT;
@@ -2951,7 +2950,7 @@ public class JPSanPham extends javax.swing.JFrame {
     DefaultComboBoxModel dcbChatLieu;
     DefaultComboBoxModel dcbDeGiay;
     DefaultComboBoxModel dcbDayGiay;
-    
+
     //---------------------Biến dùng để làm phân trang SPCT
     int CountSBG_SPCT;
     int soTrang; //Dựa trên combobox sản phẩm mà mỗi lần thực hiện thay đổi tên SP thì số trạng nó sẽ thay đổi sao cho phù hợp
@@ -2960,12 +2959,12 @@ public class JPSanPham extends javax.swing.JFrame {
     int countSBG_SP;
     int soTrangSP;
     int TrangSP = 1;
-    
+
     private void initSP() {
         fill_SP_To_Table();
         setCustomRenderer(this.tbl_dssp, -1);
     }
-    
+
     //Thực hiện truy vấn danh sách Tên SP tham số câu truy vấn 
     private void Model_fill_SP_To_Table(List<TenGiay> listTG) {
         dtmDSSP = (DefaultTableModel) this.tbl_dssp.getModel();
