@@ -892,7 +892,7 @@ public class JBanHang extends javax.swing.JFrame {
             Object[] data = new Object[]{
                 i++,
                 "HĐ" + hd.getId(), //Mã HD
-                xacDinhMaNV(hd.getId_nhanVien()),
+//                xacDinhMaNV(hd.getId_nhanVien()),
                 hd.getLoaiHoaDon(), //Tại quầy / đặt hàng
                 this.tthdd.select_TrangThaiHoaDon_ById(hd.getId_trangThaiHoaDon()),//ID_TTHD --> tên TTHĐ
             };
@@ -920,15 +920,15 @@ public class JBanHang extends javax.swing.JFrame {
         }
     }
 
-    private void fill_Voucher_To_Cbb() {//Đẩy tất cả Cbb lên.
-        dcbVoucherTaiQuay = (DefaultComboBoxModel) cbb_voucher_taiQuay.getModel();
-        dcbVoucherTaiQuay.removeAllElements();
-        dcbVoucherTaiQuay.addElement("Chưa áp dụng voucher"); //Tại vì trog DS ko thể cho cái này insert vào đc.
-        List<Voucher> listVC = vcd.getAll1();
-        for (Voucher vc : listVC) {
-            dcbVoucherTaiQuay.addElement(vc.getMota());
-        }
-    }
+//    private void fill_Voucher_To_Cbb() {//Đẩy tất cả Cbb lên.
+//        dcbVoucherTaiQuay = (DefaultComboBoxModel) cbb_voucher_taiQuay.getModel();
+//        dcbVoucherTaiQuay.removeAllElements();
+//        dcbVoucherTaiQuay.addElement("Chưa áp dụng voucher"); //Tại vì trog DS ko thể cho cái này insert vào đc.
+//        List<Voucher> listVC = vcd.getAll1();
+//        for (Voucher vc : listVC) {
+//            dcbVoucherTaiQuay.addElement(vc.getMota());
+//        }
+//    }
 
     private void fill_HĐCT_To_GioHang(int id_HDCT) {
         dtmGioHang = (DefaultTableModel) this.tbl_dsGioHang.getModel();
@@ -1031,7 +1031,7 @@ public class JBanHang extends javax.swing.JFrame {
         dtmGioHang = (DefaultTableModel) this.tbl_dsGioHang.getModel();
         dtmGioHang.setRowCount(0);
         fill_HTTT_To_Cbb();
-        fill_Voucher_To_Cbb();
+//        fill_Voucher_To_Cbb();
         fill_ALL_SPCT_To_Table();
     }
 
