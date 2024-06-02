@@ -435,7 +435,7 @@ public final class ChonThongTinKH extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-//                ChonThongTinKH dialog = new ChonThongTinKH((JBanHang) new javax.swing.JPanel(), true);
+//                ChonThongTinKH dialog = new ChonThongTinKH((JBanHang2) new javax.swing.JPanel(), true);
 //                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 //                    @Override
 //                    public void windowClosing(java.awt.event.WindowEvent e) {
