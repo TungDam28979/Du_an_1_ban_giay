@@ -112,7 +112,7 @@
                       <Component id="lbl_HDChoosed" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lbl_giaTriSoHD" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="7" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -237,7 +237,7 @@
         </Container>
         <Component class="javax.swing.JButton" name="btn3_HuySP">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Xoa"/>
+            <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn3_HuySPActionPerformed"/>
@@ -475,7 +475,7 @@
                               <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                                   <Component id="btn2_xoaDon1" min="-2" pref="97" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace pref="123" max="32767" attributes="0"/>
                                   <Component id="btn2_xoaDon2" min="-2" pref="97" max="-2" attributes="0"/>
                               </Group>
                           </Group>
