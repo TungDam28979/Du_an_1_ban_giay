@@ -509,7 +509,7 @@ public class JPNhanVien extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tbNhanVien);
 
         btnTrangThai.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnTrangThai.setText("Trạng thái");
+        btnTrangThai.setText("Nghỉ Việc/Làm Việc");
         btnTrangThai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTrangThaiActionPerformed(evt);
