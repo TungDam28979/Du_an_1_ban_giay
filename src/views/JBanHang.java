@@ -194,7 +194,7 @@ public class JBanHang extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addComponent(lbl_HDChoosed)
                 .addComponent(lbl_giaTriSoHD))
-            .addContainerGap(7, Short.MAX_VALUE))
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
     pn_gioHang.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Giỏ hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
@@ -232,7 +232,7 @@ public class JBanHang extends javax.swing.JFrame {
     });
     jScrollPane3.setViewportView(tbl_dsGioHang);
 
-    btn3_HuySP.setText("Xoa");
+    btn3_HuySP.setText("Xóa");
     btn3_HuySP.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             btn3_HuySPActionPerformed(evt);
@@ -452,7 +452,7 @@ public class JBanHang extends javax.swing.JFrame {
                 .addGroup(pn_thongTinHoaDonLayout.createSequentialGroup()
                     .addGap(47, 47, 47)
                     .addComponent(btn2_xoaDon1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
                     .addComponent(btn2_xoaDon2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addContainerGap(101, Short.MAX_VALUE))
     );
