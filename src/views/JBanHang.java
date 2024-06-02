@@ -149,7 +149,7 @@ public class JBanHang extends javax.swing.JPanel implements ChooseKH{
         txt_tenKH.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 255)));
         txt_tenKH.setPreferredSize(new java.awt.Dimension(200, 25));
 
-        btn3_HuySP1.setText("Tìm Kiếm");
+        btn3_HuySP1.setText("Chọn KH");
         btn3_HuySP1.setRadius(19);
         btn3_HuySP1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
