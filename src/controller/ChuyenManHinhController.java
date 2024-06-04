@@ -20,8 +20,8 @@ import views.JPNhanVien;
 import views.JPSanPham;
 //import views.JPThongKe;
 import views.JPVoucher;
-//import views.Login;
-//import views.Main;
+import views.Login;
+import views.Main;
 /**
  *
  * @author Tran Viet Vuong
@@ -96,14 +96,14 @@ public class ChuyenManHinhController {
 //                case "Voucher":
 //                    node = new JPVoucher();
 //                    break;
-//                case "Khách Hàng":
-//                    node = new JPKhachHang();
-//                    break;
-//                case "Đăng Xuất":
-//                    node = new JPKhachHang();
+                case "Khách Hàng":
+                    node = new JPKhachHang();
+                    break;
+                case "Đăng Xuất":
+                    node = new JPKhachHang();
 //                    node = new Main();
 //                    this.dispose();
-//                    break;
+                    break;
                 default:
                     break;
             }
