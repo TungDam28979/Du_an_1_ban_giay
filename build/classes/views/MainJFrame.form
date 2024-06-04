@@ -611,6 +611,9 @@
                       <Dimension value="[30, 35]"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jlbDangXuatMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

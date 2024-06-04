@@ -99,11 +99,11 @@ public class ChuyenManHinhController {
                 case "Khách Hàng":
                     node = new JPKhachHang();
                     break;
-                case "Đăng Xuất":
-                    node = new JPKhachHang();
+//                case "Đăng Xuất":
+//                    node = new Login();
 //                    node = new Main();
 //                    this.dispose();
-                    break;
+//                    break;
                 default:
                     break;
             }

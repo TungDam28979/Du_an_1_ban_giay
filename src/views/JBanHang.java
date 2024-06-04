@@ -654,6 +654,11 @@ public class JBanHang extends javax.swing.JPanel implements ChooseKH{
             txt_searchSPCTFocusLost(evt);
         }
     });
+    txt_searchSPCT.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            txt_searchSPCTActionPerformed(evt);
+        }
+    });
     txt_searchSPCT.addKeyListener(new java.awt.event.KeyAdapter() {
         public void keyReleased(java.awt.event.KeyEvent evt) {
             txt_searchSPCTKeyReleased(evt);
@@ -698,7 +703,7 @@ public class JBanHang extends javax.swing.JPanel implements ChooseKH{
                     .addGap(18, 18, 18)
                     .addComponent(cbb_kichThuoc2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(18, 18, 18)
-                    .addComponent(btn4_boLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 68, Short.MAX_VALUE)
+                    .addComponent(btn4_boLoc, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
                     .addGap(14, 14, 14)))
             .addContainerGap())
     );
@@ -1029,6 +1034,10 @@ public class JBanHang extends javax.swing.JPanel implements ChooseKH{
         List<Ispct> listSPCT = prdd.getALL_SPCT_For_BanHang();
         model_Fill_SPCT_To_Table(listSPCT);
     }//GEN-LAST:event_btn4_boLocActionPerformed
+
+    private void txt_searchSPCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_searchSPCTActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_searchSPCTActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
