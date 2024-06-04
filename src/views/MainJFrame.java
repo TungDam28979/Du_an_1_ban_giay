@@ -4,6 +4,7 @@
  */
 package views;
 import bean.DanhMucBeen;
+import com.webcam.Main;
 import controller.ChuyenManHinhController;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -382,6 +383,11 @@ public class MainJFrame extends javax.swing.JFrame {
         jlbDangXuat.setIconTextGap(18);
         jlbDangXuat.setMaximumSize(new java.awt.Dimension(200, 200));
         jlbDangXuat.setPreferredSize(new java.awt.Dimension(30, 35));
+        jlbDangXuat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlbDangXuatMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpnDangXuatLayout = new javax.swing.GroupLayout(jpnDangXuat);
         jpnDangXuat.setLayout(jpnDangXuatLayout);
@@ -436,6 +442,10 @@ public class MainJFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jlbDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbDangXuatMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jlbDangXuatMouseClicked
 
     /**
      * @param args the command line arguments
