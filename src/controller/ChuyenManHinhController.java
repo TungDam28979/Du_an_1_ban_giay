@@ -93,9 +93,9 @@ public class ChuyenManHinhController {
 //                case "Thống Kê":
 //                    node = new JPThongKe();
 //                    break;
-//                case "Voucher":
-//                    node = new JPVoucher();
-//                    break;
+                case "Voucher":
+                    node = new JPVoucher();
+                    break;
                 case "Khách Hàng":
                     node = new JPKhachHang();
                     break;
