@@ -201,11 +201,11 @@ public class JPKhachHang extends javax.swing.JPanel {
         if (txtName.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Không bỏ trống họ tên khách hàng !");
             return false;
-        } else if (!txtName.getText().matches("[a-zA-Z ]+$")) {
+        } else if (!txtName.getText().matches("[a-zA-ZÀ-ỹ ]+$")) {
             JOptionPane.showMessageDialog(this, "Không đúng định dạng tên !");
-            return false;
+        return false;
         }
-        if (txtAddress.getText().isEmpty()) {
+        if (txtAddress.getText().matches("[a-zA-ZÀ-ỹ ]+$")) {
             JOptionPane.showMessageDialog(this, "Không bỏ trống địa chỉ của khách hàng !");
             return false;
         } else if (!txtAddress.getText().matches("^[a-zA-Z0-9 ]*$")) {

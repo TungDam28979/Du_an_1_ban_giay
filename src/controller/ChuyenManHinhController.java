@@ -18,7 +18,7 @@ import views.JPHoaDon;
 import views.JPKhachHang;
 import views.JPNhanVien;
 import views.JPSanPham;
-//import views.JPThongKe;
+import views.JPThongKe;
 import views.JPVoucher;
 import views.Login;
 import views.Main;
@@ -90,12 +90,12 @@ public class ChuyenManHinhController {
                 case "Nhân Viên":
                     node = new JPNhanVien();
                     break;
-//                case "Thống Kê":
-//                    node = new JPThongKe();
-//                    break;
-//                case "Voucher":
-//                    node = new JPVoucher();
-//                    break;
+                case "Thống Kê":
+                    node = new JPThongKe();
+                    break;
+                case "Voucher":
+                    node = new JPVoucher();
+                    break;
                 case "Khách Hàng":
                     node = new JPKhachHang();
                     break;
