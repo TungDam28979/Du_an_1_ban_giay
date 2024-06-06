@@ -39,6 +39,8 @@ import javax.swing.table.TableRowSorter;
 import model.GetChucVu;
 import model.Ispct;
 import model.KhachHang;
+import model.KichCo;
+import model.MauSac;
 import model.NhanVien;
 import model.ThanhToanModel;
 import model.Voucher;
@@ -750,8 +752,7 @@ public class JBanHang extends javax.swing.JPanel implements ChooseKH{
                     .addComponent(pn_gioHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(pn_dssp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addComponent(tbp_LoaiHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 743, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addContainerGap(31, Short.MAX_VALUE))
+                .addComponent(tbp_LoaiHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 743, javax.swing.GroupLayout.PREFERRED_SIZE)))
     );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1273,11 +1274,22 @@ ProductDAO prd = new ProductDAO(); //Tên sản phẩm dao
     private void initDSSP() {
         dtmGioHang = (DefaultTableModel) this.tbl_dsGioHang.getModel();
         dtmGioHang.setRowCount(0);
+        fill_ALL_MauSac_To_Cbb();
+        fill_ALL_KichCo_To_Cbb();
         fill_HTTT_To_Cbb();
-//        fill_Voucher_To_Cbb();
+        fill_Voucher_To_Cbb();
         fill_ALL_SPCT_To_Table();
     }
-
+    
+        private void fill_Voucher_To_Cbb() {//Đẩy tất cả Cbb lên.
+        dcbVoucherTaiQuay = (DefaultComboBoxModel) cbb_voucher_taiQuay.getModel();
+        dcbVoucherTaiQuay.removeAllElements();
+        dcbVoucherTaiQuay.addElement("Chưa áp dụng voucher"); //Tại vì trog DS ko thể cho cái này insert vào đc.
+        List<Voucher> listVC = vcd.getAll1();
+        for (Voucher vc : listVC) {
+            dcbVoucherTaiQuay.addElement(vc.getMota());
+        }
+    }
     private void model_Fill_SPCT_To_Table(List<Ispct> listSPCT) {//Công cụ đẩy dữ liệu lên bảng SPCT
         dtmDSSP = (DefaultTableModel) this.tbl_dssp.getModel();
         dtmDSSP.setRowCount(0);
@@ -1335,7 +1347,24 @@ ProductDAO prd = new ProductDAO(); //Tên sản phẩm dao
         List<Ispct> listSPCT = prdd.getALL_SPCT_For_BanHang();
         model_Fill_SPCT_To_Table(listSPCT);
     }
+    
+        private void fill_ALL_MauSac_To_Cbb() {//dùng vòng lặp duyệt tất cả màu sắc ở danh sách đổ vào combobox.
+        dcbMauSac = (DefaultComboBoxModel) cbb_mauSac2.getModel();
+        dcbMauSac.removeAllElements();
+        List<MauSac> listMS = msd.selectAll();
+        for (MauSac ms : listMS) {
+            dcbMauSac.addElement(ms.getName());
+        }
+    }
 
+    private void fill_ALL_KichCo_To_Cbb() {//dùng vòng lặp duyệt tất cả kích cỡ ở danh sách đổ vào combobox.
+        dcbKichCo = (DefaultComboBoxModel) cbb_kichThuoc2.getModel();
+        dcbKichCo.removeAllElements();
+        List<KichCo> listKC = kcd.selectAll();
+        for (KichCo kc : listKC) {
+            dcbKichCo.addElement(kc.getName());
+        }
+    }
 
 
     //-------------------Utility Hóa Đơn + SPCT 

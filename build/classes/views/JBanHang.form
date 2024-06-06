@@ -51,7 +51,6 @@
                   </Group>
                   <Component id="tbp_LoaiHoaDon" alignment="0" min="-2" pref="743" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="31" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
