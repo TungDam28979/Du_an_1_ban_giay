@@ -86,6 +86,8 @@ public class JPSanPham extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         tbp = new javax.swing.JTabbedPane();
         tbp_SP = new javax.swing.JPanel();
         jpn_TTSP = new javax.swing.JPanel();
@@ -434,7 +436,7 @@ public class JPSanPham extends javax.swing.JPanel {
             jpn_TTSPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpn_TTSPLayout.createSequentialGroup()
                 .addGroup(jpn_TTSPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 362, Short.MAX_VALUE)
                     .addComponent(jPanel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -485,6 +487,7 @@ public class JPSanPham extends javax.swing.JPanel {
 
     jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Trạng Thái Hàng Hóa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
 
+    buttonGroup2.add(rdo_dangKinhDoanh);
     rdo_dangKinhDoanh.setText("Đang Kinh Doanh");
     rdo_dangKinhDoanh.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -492,6 +495,7 @@ public class JPSanPham extends javax.swing.JPanel {
         }
     });
 
+    buttonGroup2.add(rdo_dungKinhDoanh);
     rdo_dungKinhDoanh.setText("Dừng Kinh Doanh");
     rdo_dungKinhDoanh.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -499,6 +503,7 @@ public class JPSanPham extends javax.swing.JPanel {
         }
     });
 
+    buttonGroup2.add(rdo_tatCa);
     rdo_tatCa.setSelected(true);
     rdo_tatCa.setText("Tất Cả");
     rdo_tatCa.addActionListener(new java.awt.event.ActionListener() {
@@ -667,7 +672,7 @@ public class JPSanPham extends javax.swing.JPanel {
     tbp_SPLayout.setVerticalGroup(
         tbp_SPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addComponent(jpn_TTSP, javax.swing.GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
-        .addComponent(jpn_DSSP, javax.swing.GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
+        .addComponent(jpn_DSSP, javax.swing.GroupLayout.PREFERRED_SIZE, 734, Short.MAX_VALUE)
     );
 
     tbp.addTab("Sản Phẩm", tbp_SP);
@@ -1010,12 +1015,12 @@ public class JPSanPham extends javax.swing.JPanel {
         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
-                .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+                .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, 310, Short.MAX_VALUE)
+                .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, 310, Short.MAX_VALUE)
                 .addComponent(jPanel19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
-                .addComponent(jPanel18, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
-                .addComponent(jPanel17, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
-                .addComponent(jPanel16, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE))
+                .addComponent(jPanel18, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 310, Short.MAX_VALUE)
+                .addComponent(jPanel17, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 310, Short.MAX_VALUE)
+                .addComponent(jPanel16, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 310, Short.MAX_VALUE))
             .addContainerGap())
     );
     jPanel8Layout.setVerticalGroup(
@@ -1345,6 +1350,7 @@ public class JPSanPham extends javax.swing.JPanel {
 
     jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Danh sách thuộc tính"));
 
+    buttonGroup1.add(rdo_kichThuoc);
     rdo_kichThuoc.setSelected(true);
     rdo_kichThuoc.setText("Kích Thước");
     rdo_kichThuoc.addActionListener(new java.awt.event.ActionListener() {
@@ -1353,6 +1359,7 @@ public class JPSanPham extends javax.swing.JPanel {
         }
     });
 
+    buttonGroup1.add(rdo_chatLieu);
     rdo_chatLieu.setText("Chất Liệu");
     rdo_chatLieu.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1360,6 +1367,7 @@ public class JPSanPham extends javax.swing.JPanel {
         }
     });
 
+    buttonGroup1.add(rdo_mauSac);
     rdo_mauSac.setText("Màu Sắc");
     rdo_mauSac.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1367,6 +1375,7 @@ public class JPSanPham extends javax.swing.JPanel {
         }
     });
 
+    buttonGroup1.add(rdo_thuongHieu);
     rdo_thuongHieu.setText("Thương Hiệu");
     rdo_thuongHieu.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1374,6 +1383,7 @@ public class JPSanPham extends javax.swing.JPanel {
         }
     });
 
+    buttonGroup1.add(rdo_deGiay);
     rdo_deGiay.setText("Đế Giày");
     rdo_deGiay.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1381,6 +1391,7 @@ public class JPSanPham extends javax.swing.JPanel {
         }
     });
 
+    buttonGroup1.add(rdo_dayGiay);
     rdo_dayGiay.setText("Dây Giày");
     rdo_dayGiay.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2498,6 +2509,8 @@ public class JPSanPham extends javax.swing.JPanel {
     private javax.swing.JButton btn_xoaSPCT;
     private javax.swing.JButton btn_xoaTTSP;
     private javax.swing.JButton btn_xuatFileExcel;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> cbb_chatLieu;
     private javax.swing.JButton cbb_congChatLieu;
     private javax.swing.JComboBox<String> cbb_dayGiay;

@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
@@ -24,6 +25,7 @@ import model.HoaDonModel_manh;
 import model.Ispct;
 import model.KhachHang;
 import model.NhanVien;
+import model.Voucher;
 import service.KhachHangService;
 import service.NhanVienService;
 import utility.MsgBox;
@@ -120,7 +122,6 @@ public class JPHoaDon extends javax.swing.JPanel {
     });
     jScrollPane1.setViewportView(tbl_HD);
 
-    cbb_searchHttt.setMaximumRowCount(8);
     cbb_searchHttt.setLabeText("Hình thức thanh toán");
     cbb_searchHttt.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,7 +147,6 @@ public class JPHoaDon extends javax.swing.JPanel {
         }
     });
 
-    cbb_searchnvpt.setMaximumRowCount(8);
     cbb_searchnvpt.setLabeText("Nhân viên phụ trách");
     cbb_searchnvpt.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -271,7 +271,6 @@ public class JPHoaDon extends javax.swing.JPanel {
     txt_maKH.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 255)));
     txt_maKH.setDoubleBuffered(true);
     txt_maKH.setEnabled(false);
-    txt_maKH.setOpaque(true);
     txt_maKH.setPreferredSize(new java.awt.Dimension(200, 25));
 
     javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
@@ -300,7 +299,6 @@ public class JPHoaDon extends javax.swing.JPanel {
     txt_tenKH.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 255)));
     txt_tenKH.setDoubleBuffered(true);
     txt_tenKH.setEnabled(false);
-    txt_tenKH.setOpaque(true);
     txt_tenKH.setPreferredSize(new java.awt.Dimension(200, 25));
 
     javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
@@ -330,7 +328,6 @@ public class JPHoaDon extends javax.swing.JPanel {
     txt_sdt.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 255)));
     txt_sdt.setDoubleBuffered(true);
     txt_sdt.setEnabled(false);
-    txt_sdt.setOpaque(true);
     txt_sdt.setPreferredSize(new java.awt.Dimension(200, 25));
 
     javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
@@ -360,7 +357,6 @@ public class JPHoaDon extends javax.swing.JPanel {
     txt_email.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 255)));
     txt_email.setDoubleBuffered(true);
     txt_email.setEnabled(false);
-    txt_email.setOpaque(true);
     txt_email.setPreferredSize(new java.awt.Dimension(200, 25));
 
     javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
@@ -390,7 +386,6 @@ public class JPHoaDon extends javax.swing.JPanel {
     txt_diaChi.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 255)));
     txt_diaChi.setDoubleBuffered(true);
     txt_diaChi.setEnabled(false);
-    txt_diaChi.setOpaque(true);
     txt_diaChi.setPreferredSize(new java.awt.Dimension(200, 25));
 
     javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
@@ -420,7 +415,6 @@ public class JPHoaDon extends javax.swing.JPanel {
     txt_tongTienDua.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 255)));
     txt_tongTienDua.setDoubleBuffered(true);
     txt_tongTienDua.setEnabled(false);
-    txt_tongTienDua.setOpaque(true);
     txt_tongTienDua.setPreferredSize(new java.awt.Dimension(200, 25));
 
     javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
@@ -450,7 +444,6 @@ public class JPHoaDon extends javax.swing.JPanel {
     txt_tienThua.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 255)));
     txt_tienThua.setDoubleBuffered(true);
     txt_tienThua.setEnabled(false);
-    txt_tienThua.setOpaque(true);
     txt_tienThua.setPreferredSize(new java.awt.Dimension(200, 25));
 
     javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
@@ -480,7 +473,6 @@ public class JPHoaDon extends javax.swing.JPanel {
     txt_tongGTHD.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 255)));
     txt_tongGTHD.setDoubleBuffered(true);
     txt_tongGTHD.setEnabled(false);
-    txt_tongGTHD.setOpaque(true);
     txt_tongGTHD.setPreferredSize(new java.awt.Dimension(200, 25));
 
     javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
@@ -575,7 +567,7 @@ public class JPHoaDon extends javax.swing.JPanel {
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 901, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 901, Short.MAX_VALUE)
                 .addContainerGap()))
     );
     layout.setVerticalGroup(
@@ -584,7 +576,7 @@ public class JPHoaDon extends javax.swing.JPanel {
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 753, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 753, Short.MAX_VALUE)
                 .addContainerGap()))
     );
     }// </editor-fold>//GEN-END:initComponents

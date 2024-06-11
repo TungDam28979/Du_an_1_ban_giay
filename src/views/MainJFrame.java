@@ -445,6 +445,8 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void jlbDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbDangXuatMouseClicked
         // TODO add your handling code here:
+        
+        this.dispose();
     }//GEN-LAST:event_jlbDangXuatMouseClicked
 
     /**
