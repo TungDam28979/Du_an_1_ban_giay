@@ -20,8 +20,6 @@ import views.JPNhanVien;
 import views.JPSanPham;
 import views.JPThongKe;
 import views.JPVoucher;
-import views.Login;
-import views.Main;
 /**
  *
  * @author Tran Viet Vuong
